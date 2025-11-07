@@ -1,44 +1,47 @@
 import express from "express";
-import cors from "cors";
 import dotenv from "dotenv";
 import { ConnectDb } from "./database/connectDatabase.js";
-
-
+import  cors from "cors"
+// --- Import all your route handlers ---
 import authRoutes from "./routes/auth.js";
-import itemRoutes from "./routes/items.js";
 import cartRoutes from "./routes/cart.js";
+import itemsRoutes from "./routes/items.js";
 import orderRoutes from "./routes/order.js";
-import shopRoutes from "./routes/shop.js" ; 
+import shopRoutes from "./routes/shop.js";
 
+// --- Load Environment Variables (at the top) ---
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
-app.use(cors());
-app.use(express.json());
-
-
-await ConnectDb();
-
-
-app.get("/", (req, res) => {
-  res.send("🚀 API is running successfully!");
-});
-
-
+// --- Global Middleware ---
+app.use(express.json()); // Essential for parsing req.body
+app.use(cors())
+// --- API Routes ---
+// This registers all your controller routes under a base path
 app.use("/api/auth", authRoutes);
-app.use("/api/items", itemRoutes);
 app.use("/api/cart", cartRoutes);
+app.use("/api/items", itemsRoutes);
 app.use("/api/orders", orderRoutes);
-app.use("/api/shop" , shopRoutes)
+app.use("/api/shop", shopRoutes);
 
-// ✅ 404 Route
-app.use((req, res) => {
-  res.status(404).json({ msg: "Route not found" });
-});
+// --- Start Server Function ---
+const startServer = async () => {
+  try {
+    // 1. Connect to the Database
+    await ConnectDb(); 
+    
+    // 2. Start the Express Server (only after DB is connected)
+    app.listen(PORT, () => {
+      console.log(`✅ Server is running on http://localhost:${PORT}`);
+    });
 
-// ✅ Start Server
-app.listen(port, () => {
-  console.log(`✅ Server running on port ${port}`);
-});
+  } catch (err) {
+    console.error("❌ Failed to start server:", err);
+    process.exit(1); // Exit the process with an error code
+  }
+};
+
+// --- Run the server ---
+startServer();

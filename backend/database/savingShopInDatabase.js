@@ -1,14 +1,14 @@
 import { client } from "./connectDatabase.js";
 
-export async function savingDataOfShop(users_id, name, shopkeeper_name) {
+export async function savingDataOfShop(user_id, name, shopkeeper_name) {
   try {
     const result = await client.query(
       `
-      INSERT INTO shops (users_id, name, shopkeepername)
+      INSERT INTO shops (user_id, name, shopkeeper_name)
       VALUES ($1, $2, $3)
       RETURNING *;
       `,
-      [users_id, name, shopkeeper_name]
+      [user_id, name, shopkeeper_name]
     );
 
     console.log("✅ Shop data saved successfully!");

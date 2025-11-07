@@ -3,7 +3,7 @@ import { savingDataOfShop } from "../database/savingShopInDatabase.js";
 class Shop {
     async addShop(req , res){
         const {name , shopkeeper_name } = req.body ; 
-        const id = req.users ; 
+        const id = req.users.id ; 
 
         const result =  savingDataOfShop(id , name , shopkeeper_name) ; 
 

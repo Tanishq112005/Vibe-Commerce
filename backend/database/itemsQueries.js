@@ -57,7 +57,7 @@ export async function deleteItem(item_id) {
 
 
 // Get all items
-export async function getItems() {
+export async function getItemsFromDatabase() {
     try {
       const result = await client.query(`
         SELECT * FROM items ORDER BY listed_at DESC;
@@ -68,3 +68,34 @@ export async function getItems() {
     }
   }
   
+
+
+  export async function getItemsOfShopkepperdata(shop_id) {
+    try {
+        const result = await client.query(
+            `
+            SELECT 
+                i.id,
+                i.name,
+                i.price,
+                i.image_url,
+                i.shop_id,
+                i.number_of_product_available,
+                i.number_of_sold,
+                i.listed_at,
+                i.category_type,
+                s.name as shop_name,
+                s.shopkeeper_name,
+                s.user_id
+            FROM items i
+            INNER JOIN shops s ON i.shop_id = s.id
+            WHERE i.shop_id = $1
+            ORDER BY i.listed_at DESC
+            `,
+            [shop_id]
+        );
+        return result.rows;
+    } catch (err) {
+        throw err;
+    }
+}

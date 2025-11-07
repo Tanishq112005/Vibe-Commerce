@@ -12,7 +12,7 @@ class AuthController {
     try {
       const result = await dataOfUser(password, email);
 
-     
+       console.log("lp") ;
       if (!result) {
         return res.status(404).json({
           msg: "No such user exists",

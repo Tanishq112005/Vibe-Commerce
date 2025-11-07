@@ -1,15 +1,19 @@
-import { addItem, updateItem, deleteItem } from "../database/itemsQueries.js";
+import { findingShopId } from "../database/findingShopid.js";
+import { addItem, updateItem, deleteItem, getItemsFromDatabase } from "../database/itemsQueries.js";
 
 class ItemsController {
   async addItem(req, res) {
     try {
-      const { shop_id, name, price, image_url, number_of_product_available, category_type } = req.body;
-
-      if (!shop_id || !name || !price) {
+      const { name, price, image_url, number_of_product_available, category_type } = req.body;
+      const id = req.users.id ; 
+      const shop_id = await findingShopId(id).id ; 
+      let cat = [] ;
+      cat.push(category_type) ;
+      if ( !name || !price) {
         return res.status(400).json({ msg: "Missing required fields" });
       }
 
-      const item = await addItem(shop_id, name, price, image_url, number_of_product_available, category_type);
+      const item = await addItem(shop_id, name, price, image_url, number_of_product_available, cat);
       res.status(201).json({ msg: "Item added successfully", data : item });
     } catch (err) {
       console.error("Error adding item:", err);
@@ -55,7 +59,7 @@ class ItemsController {
 
   async getItems(req, res) {
     try {
-      const items = await getItems();
+      const items = await getItemsFromDatabase();
 
       if (!items.length) {
         return res.status(404).json({ msg: "No items found" });
@@ -68,6 +72,41 @@ class ItemsController {
     }
   }
   
+
+ // itemsController.js
+    
+  async  getItemsOfShopkepper (req , res) {
+        try {
+            
+          const id = req.users.id ; 
+          const shop_id = await findingShopId(id).id ; 
+            // Validate shop_id
+            if (!shop_id) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Shop ID is required"
+                });
+            }
+
+            // Get items for the specific shop
+            const items = await getItemsOfShopkepperdata(shop_id);
+            
+            res.status(200).json({
+                success: true,
+                data: items,
+                count: items.length
+            });
+            
+        } catch (error) {
+            console.error("Error fetching shopkeeper items:", error);
+            res.status(500).json({
+                success: false,
+                message: "Internal server error",
+                error: error.message
+            });
+        }
+    }
+
 }
 
 export const itemsController = new ItemsController();
