@@ -27,11 +27,19 @@ This project is a complete e-commerce website where users can browse products, a
 
 ## 📸 Screenshots
 
-| Homepage | Cart Page |
+## 📸 Screenshots
+
+| **Home Page** | **Home Page (Filters)** |
 | :---: | :---: |
-| ![Homepage Screenshot](https://via.placeholder.com/400x300.png?text=Homepage) | ![Cart Page Screenshot](https://via.placeholder.com/400x300.png?text=Cart+Page) |
-| **Login Page** | **Mobile View** |
-| ![Login Page Screenshot](https://via.placeholder.com/400x300.png?text=Login+Page) | ![Mobile View Screenshot](https://via.placeholder.com/400x300.png?text=Mobile+View) |
+| ![Homepage Screenshot](./images/homePage.png) | ![Homepage Screenshot](./images/homePage1.png) |
+| **Home Page (Mobile)** | **Login** |
+| ![Homepage Screenshot](./images/homePage3.png) | ![Login Page](./images/login.png) |
+| **Sign Up** | **Customer Dashboard** |
+| ![Signup Page](./images/signup.png) | ![Customer Dashboard](./images/userdashobard.png) |
+| **User Cart** | **Order Summary** |
+| ![User Cart](./images/cart.png) | ![Order Summary Page](./images/order.png) |
+| **Shop Creation** | **Shopkeeper Dashboard** |
+| ![Shop Creation Page](./images/makingShop.png) | ![Shopkeeper Dashboard](./images/shopkeeper.png) |
 
 ---
 
@@ -115,7 +123,7 @@ To get a local copy up and running, follow these steps.
 ### 1. Clone the Repository
 
 ```sh
-git clone [https://github.com/Tanishq112005/Vibe-Commerce.git](https://github.com/Tanishq112005/Vibe-Commerce.git)
+git clone https://github.com/Tanishq112005/Vibe-Commerce.git
 cd your-repo-name
 ```
 
