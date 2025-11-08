@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // Set base URL
-axios.defaults.baseURL = 'http://localhost:3500/api';
+axios.defaults.baseURL = 'https://vibe-commerce-eycx.onrender.com/api';
 
 // Function to set auth token (call this after login)
 export const setAuthToken = (token) => {
