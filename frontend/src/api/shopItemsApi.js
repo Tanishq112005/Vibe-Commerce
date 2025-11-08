@@ -1,24 +1,25 @@
-// src/store/api/shopItemsApi.js
-import axios from 'axios';
+import axios from '../utils/axiosConfig'; // <-- FIX
+
+const BASE_URL = '/items'; // Define a base URL for this API
 
 export const shopItemsApi = {
   getItems: () => {
-    return axios.get('/items/getItems');
+    return axios.get(`${BASE_URL}/getItems`); // Use BASE_URL
   },
   
   addItem: (itemData) => {
-    return axios.post('/items/add', itemData);
+    return axios.post(`${BASE_URL}/add`, itemData); // Use BASE_URL
   },
   
   updateItem: (id, updatedFields) => {
-    return axios.put(`/items/update/${id}`, updatedFields);
+    return axios.put(`${BASE_URL}/update/${id}`, updatedFields); // Use BASE_URL
   },
   
   deleteItem: (id) => {
-    return axios.delete(`/items/delete/${id}`);
+    return axios.delete(`${BASE_URL}/delete/${id}`); // Use BASE_URL
   },
 
   shopKeeperItems : () => {
-    return axios.get('/items/getShopkeeperItems');
+    return axios.get(`${BASE_URL}/getShopkeeperItems`); // Use BASE_URL
   }
 };

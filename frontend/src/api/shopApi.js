@@ -1,17 +1,17 @@
-// src/store/api/shopApi.js
-import axios from 'axios';
+import axios from '../utils/axiosConfig'; // <-- FIX
+
+const BASE_URL = '/shop'; // Define a base URL for this API
 
 export const shopApi = {
   addShop: (shopData) => {
-    return axios.post('/shop/addShop', shopData);
+    return axios.post(`${BASE_URL}/addShop`, shopData); // Use BASE_URL
   },
   
-  // You might want to add these later
   getShop: () => {
-    return axios.get('/shop/getShop');
+    return axios.get(`${BASE_URL}/getShop`); // Use BASE_URL
   },
   
   updateShop: (shopData) => {
-    return axios.put('/shop/updateShop', shopData);
+    return axios.put(`${BASE_URL}/updateShop`, shopData); // Use BASE_URL
   }
 };

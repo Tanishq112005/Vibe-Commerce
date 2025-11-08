@@ -13,7 +13,7 @@ import shopRoutes from "./routes/shop.js";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3500;
 
 // --- Global Middleware ---
 app.use(express.json()); // Essential for parsing req.body

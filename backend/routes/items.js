@@ -1,7 +1,7 @@
 import express from "express";
 import { itemsController } from "../controllers/itmesController.js";
-import { authMiddleware } from "../middleware/auth.js";
 
+import authMiddleware from "../middleware/auth.js";
 const router = express.Router();
 
 router.post("/add", authMiddleware , (req, res) => itemsController.addItem(req, res));

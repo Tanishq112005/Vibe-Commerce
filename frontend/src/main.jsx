@@ -1,18 +1,22 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import { store } from './store/store.js'
-import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
-import './utils/axiosConfig'; // Import axios configuration
+// src/main.jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './store/store'; // Import your store
+import App from './App';
+import { setupAxiosInterceptor } from './store/interceptor'; // Import the new function
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
+// Call the setup function and pass the store
+setupAxiosInterceptor(store);
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
     <Provider store={store}>
-    <BrowserRouter>
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </Provider>
-  </StrictMode>,
-)
+  </React.StrictMode>
+);

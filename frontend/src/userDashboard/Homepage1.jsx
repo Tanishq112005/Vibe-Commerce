@@ -32,7 +32,8 @@ const HomePage = () => {
     }
     
     try {
-      await dispatch(addToCart({ item_id: item.id, quantity: 1 })).unwrap();
+      // ✅ Pass the whole 'item' object, not just 'item.id'
+      await dispatch(addToCart({ item: item, quantity: 1 })).unwrap();
     } catch (error) {
       console.error('Failed to add item to cart:', error);
     }

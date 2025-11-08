@@ -1,20 +1,29 @@
+// src/api/cartApi.js
+import axios from '../utils/axiosConfig';
 
-import axios from 'axios';
+const BASE_URL = '/cart';
 
 export const cartApi = {
-  getCart: () => {
-    return axios.get('/cart/get');
+  getCartItems: () => {
+    return axios.get(`${BASE_URL}/`);
   },
-  
-  addItem: (item_id, quantity) => {
-    return axios.post('/cart/add', { item_id, quantity });
+
+  addToCart: (itemData) => {
+    return axios.post(`${BASE_URL}/add`, itemData);
   },
-  
-  updateItem: (item_id, quantity) => {
-    return axios.put('/cart/update', { item_id, quantity });
+
+  updateCartItem: (item_id, quantity) => {
+    console.log(item_id) ; 
+    return axios.put(`${BASE_URL}/update`, { 
+      item_id : item_id, 
+      quantity : quantity });
   },
-  
-  deleteItem: (item_id) => {
-    return axios.delete(`/cart/delete/${item_id}`);
+
+  removeFromCart: (itemId) => {
+    return axios.delete(`${BASE_URL}/remove/${itemId}`);
   },
+
+  clearCart: () => {
+    return axios.delete(`${BASE_URL}/clear`);
+  }
 };

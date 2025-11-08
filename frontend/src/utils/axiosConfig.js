@@ -1,39 +1,41 @@
 // src/utils/axiosConfig.js
 import axios from 'axios';
 
-// Set base URL - update this to match your backend URL
-axios.defaults.baseURL = 'http://localhost:5000/api'; // Adjust port if different
+// Set base URL
+axios.defaults.baseURL = 'http://localhost:3500/api';
 
-// Add token to requests if it exists
+// Function to set auth token (call this after login)
+export const setAuthToken = (token) => {
+   if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      localStorage.setItem('token', token);
+   } else {
+      delete axios.defaults.headers.common['Authorization'];
+      localStorage.removeItem('token');
+   }
+};
+
+// Initialize token from localStorage on app start
 const token = localStorage.getItem('token');
 if (token) {
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+   setAuthToken(token);
 }
 
-// Add request interceptor to handle errors
+// Request interceptor
 axios.interceptors.request.use(
-  (config) => {
-    // You can add any request modifications here
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
+   (config) => {
+      // Add timestamp for cache busting if needed
+      config.params = {
+         ...config.params,
+         _t: Date.now()
+      };
+      return config;
+   },
+   (error) => {
+      return Promise.reject(error);
+   }
 );
 
-// Response interceptor to handle errors
-axios.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      // Token expired or invalid
-      localStorage.removeItem('token');
-      delete axios.defaults.headers.common['Authorization'];
-      // You can redirect to login page here if needed
-      window.location.href = '/login';
-    }
-    return Promise.reject(error);
-  }
-);
+// The old response interceptor is now removed and handled in src/store/interceptor.js
 
 export default axios;

@@ -1,4 +1,4 @@
-import { client } from "./connectDatabase.js";
+import  {client}  from "./connectDatabase.js";
 
 
 export async function addToCart(user_id, item_id, quantity = 1) {

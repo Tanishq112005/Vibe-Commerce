@@ -1,25 +1,30 @@
-import { verifyToken } from "../utils/jwt.js";
+import jwt from 'jsonwebtoken';
 
-export function authMiddleware(req , res , next){
-    const access_token = req.headers["authorization"]?.split(" ")[1]; 
+const authMiddleware = (req, res, next) => {
+  // Get token from header, e.g., "Bearer YOUR_TOKEN"
+  const authHeader = req.header('Authorization');
+  const token = authHeader && authHeader.split(' ')[1];
+
+  // 1. Check if no token
+  if (!token) {
+    return res.status(401).json({ msg: 'Need of the access token' });
+  }
+
+  // 2. Verify token
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     
-    if(!access_token){
-        console.log("Need of the access token") ;
-        res.status(404).json({
-            msg : "Need of the access token" 
-        }
-        )
-    }
+  
+    req.users = {id : decoded.id} ; 
     
 
-    try {
-        const decode = verifyToken(access_token) ; 
-        req.users = {id : decode.id} ; 
-        return next() ; 
-    }
-    catch(error){
-        res.status(500).json({
-            msg : `Error is coming , the error is ${error}` 
-        })
-    }
-}
+  
+    return next(); // This is line 24 from your log
+
+  } catch (err) {
+    // If token is invalid
+    return res.status(401).json({ msg: 'Token is not valid' });
+  }
+};
+
+export default authMiddleware;

@@ -1,10 +1,11 @@
-// src/store/index.js (updated)
+// src/store/index.js
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './slice/authSlice';
 import cartReducer from './slice/cartSlice';
 import itemsReducer from './slice/itemsSlice';
 import shopReducer from './slice/shopSlice';
 import shopItemsReducer from './slice/shopItemsSlice';
+import orderReducer from './slice/orderSlice'; // <-- CORRECTED
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     items: itemsReducer,
     shop: shopReducer,
     shopItems: shopItemsReducer,
+    orders: orderReducer, // <-- CORRECTED
   },
 });
 

@@ -1,8 +1,10 @@
-// src/store/api/itemsApi.js
-import axios from 'axios';
-const BASE_URL = 'http://localhost:5000/api'; // Adjust based on your backend URL
+
+// CORRECT
+import axios from '../utils/axiosConfig'; // <-- FIX
+const BASE_URL = '/items'; // Base URL is already set in axiosConfig
+
 export const itemsApi = {
-  getItems: () => {
-    return axios.get(`${BASE_URL}/items/getItems`);
-  },
+ getItems: () => {
+  return axios.get(`${BASE_URL}/getItems`);
+ },
 };
