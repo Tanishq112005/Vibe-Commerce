@@ -8,9 +8,9 @@ This project is a complete e-commerce website where users can browse products, a
 
 ## 🚀 Live Links & Demo
 
-* **Frontend (Live):** [https://your-frontend-hosted-link.com](https://your-frontend-hosted-link.com)
-* **Backend (Live):** [https://your-backend-api-link.com](https://your-backend-api-link.com)
-* **YouTube Demo:** [https://youtube.com/watch?v=your-video-id](https://youtube.com/watch?v=your-video-id)
+* **Frontend (Live):** [https://vibe-commerce-qsmz.vercel.app/](https://vibe-commerce-qsmz.vercel.app/)
+* **Backend (Live):** [https://vibe-commerce-eycx.onrender.com](https://vibe-commerce-eycx.onrender.com)
+* **YouTube Demo:** [https://www.youtube.com/watch?v=SCeeDYW9eh0](https://www.youtube.com/watch?v=SCeeDYW9eh0)
 
 ---
 
@@ -43,6 +43,7 @@ This project is a complete e-commerce website where users can browse products, a
 4.  **Add to Cart:** Click the "Add to Cart" button on any product card.
 5.  **View Your Cart:** Click the "🛒 View Cart" button in the header to see your selected items.
 6.  **Manage Your Cart:** On the cart page, you can update the quantity of any item or remove it completely.
+7.  **Place Order:** Proceed to checkout to place your order.
 
 ---
 
@@ -63,26 +64,42 @@ Here are the main API endpoints used by the application.
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| `POST` | `/api/auth/register` | Registers a new user. |
-| `POST` | `/api/auth/login` | Logs in an existing user and returns a JWT. |
-| `GET` | `/api/auth/me` | Returns the profile of the currently logged-in user. |
+| `POST` | `/api/auth/signUp` | Registers a new user. |
+| `POST` | `/api/auth/login` | Logs in an existing user and returns a token. |
 
-### Products (`/api/products`)
+### Items / Products (`/api/items`)
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| `GET` | `/api/products` | Fetches a list of all available products. |
-| `GET` | `/api/products/:id` | Fetches details for a single product. |
+| `GET` | `/api/items/getItems` | **(Protected)** Fetches all available items. |
+| `GET` | `/api/items/getShopkeeperItems`| **(Protected)** Fetches items specific to the logged-in shopkeeper. |
+| `POST` | `/api/items/add` | **(Protected)** Adds a new item to the store. |
+| `PUT` | `/api/items/update/:id` | **(Protected)** Updates details of a specific item. |
+| `DELETE` | `/api/items/delete/:id` | **(Protected)** Removes an item from the store. |
 
 ### Cart (`/api/cart`)
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| `GET` | `/api/cart` | **(Protected)** Fetches all items in the user's cart. |
-| `POST` | `/api/cart` | **(Protected)** Adds a new item to the cart. Expects `{"item_id": 1, "quantity": 1}`. |
-| `PUT` | `/api/cart/:item_id` | **(Protected)** Updates the quantity of an item. Expects `{"quantity": 3}`. |
-| `DELETE` | `/api/cart/:item_id` | **(Protected)** Removes a single item from the cart. |
-| `DELETE` | `/api/cart` | **(Protected)** Clears all items from the user's cart. |
+| `GET` | `/api/cart/` | **(Protected)** Fetches all items in the user's cart. |
+| `POST` | `/api/cart/add` | **(Protected)** Adds an item to the cart. |
+| `PUT` | `/api/cart/update` | **(Protected)** Updates the quantity of a cart item. |
+| `DELETE` | `/api/cart/:item_id` | **(Protected)** Removes a specific item from the cart. |
+
+### Orders (`/api/orders`)
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/orders/create` | **(Protected)** Places a new order. |
+| `GET` | `/api/orders/my-orders` | **(Protected)** Fetches the current user's order history. |
+| `DELETE` | `/api/orders/:id` | **(Protected)** Cancels/removes a specific order. |
+
+### Shop (`/api/shop`)
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/shop/addShop` | **(Protected)** Registers a new shop. |
+
 
 ---
 
@@ -98,7 +115,7 @@ To get a local copy up and running, follow these steps.
 ### 1. Clone the Repository
 
 ```sh
-git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
+git clone [https://github.com/Tanishq112005/Vibe-Commerce.git](https://github.com/Tanishq112005/Vibe-Commerce.git)
 cd your-repo-name
 ```
 
