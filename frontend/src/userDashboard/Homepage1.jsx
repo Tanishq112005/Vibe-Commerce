@@ -7,7 +7,7 @@ import { fetchCartItems, addToCart } from '../store/slice/cartSlice';
 import Header from '../components/common/Header';
 import ProductCard from '../components/items/ProductCard';
 import Filters from '../components/items/Filters';
-import './HomePage.css';
+import './Homepage.css';
 
 const HomePage = () => {
   const navigate = useNavigate();
